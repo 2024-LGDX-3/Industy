@@ -12,7 +12,6 @@
     <h1>팀장 두번째 커밋</h1>
     <h1>성일 두번째 커밋</h1>
     <h1>명준 첫번째 커밋!</h1>
-    <h1>오키</h1>
     <img src=""https://github.com/Sungileo/trainsets/blob/main/ji.png?raw=true"" alt="">
 
 </body>

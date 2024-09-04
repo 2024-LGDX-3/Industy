@@ -1,5 +1,0 @@
-package kr.spring.config;
-
-public class UserDetailsServiceImpl {
-
-}
