@@ -1,0 +1,17 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<<<<<<< HEAD
+	<h1>팀장 첫번째 커밋</h1>
+=======
+    <h1>안녕하세요</h1>
+    <img src=""https://github.com/Sungileo/trainsets/blob/main/ji.png?raw=true"" alt="">
+>>>>>>> 27b6806564057cf6c48f17f13f45082af1646e13
+</body>
+</html>
