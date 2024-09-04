@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+    <h1>안녕하세요</h1>
+    <img src=""https://github.com/Sungileo/trainsets/blob/main/ji.png?raw=true"" alt="">
 </body>
 </html>
