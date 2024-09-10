@@ -7,98 +7,126 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: black;
-            color: white;
+            background-color: #121212;
+            color: #ffffff;
             margin: 0;
-            padding: 20px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: auto 1fr auto;
-            gap: 20px;
+            padding: 0;
+            display: flex;
             height: 100vh;
             box-sizing: border-box;
         }
-        .left {
+
+        .left-panel, .right-panel {
+            width: 250px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            width: 50%;
+            justify-content: space-between;
         }
-        .right {
-            display: flex;
+
+        .left-panel {
+            align-items: flex-start;
+        }
+
+        .right-panel {
+            align-items: flex-end;
+        }
+
+        .weather, .clock, .news, .settings, .cleanliness {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .news h2, .settings h2, .cleanliness h2 {
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .settings button {
+            display: block;
+            margin: 0 auto;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #0066cc;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        .settings-menu {
+            display: none;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            width: 50%;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-radius: 10px;
         }
-        .weather, .clock {
-            text-align: left;
-            font-size: 1.5em;
+
+        .settings-menu button {
+            margin: 10px 0;
         }
-        .news {
-            overflow-y: auto;
-            text-align: left;
+
+        .settings-menu .back-button {
+            background-color: #333;
         }
-        .news h2 {
-            text-align: left;
-        }
-        .news ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        .news li {
-            margin-bottom: 10px;
-        }
+
         .cleanliness {
             text-align: center;
         }
-        .cleanliness h2 {
-            margin-bottom: 20px;
+
+        .indicator {
+            margin: 10px 0;
         }
-        .cleanliness .status {
-            font-size: 1.2em;
-            margin-bottom: 10px;
+
+        .indicator span {
+            display: inline-block;
+            width: 120px;
+            font-weight: bold;
+            text-align: left;
         }
-        .good {
-            color: green;
-        }
-        .average {
-            color: orange;
-        }
-        .bad {
-            color: red;
-        }
-        .youtube, .image-switch {
+
+        .indicator .status {
+            display: inline-block;
+            width: 50px;
+            padding: 5px;
+            border-radius: 5px;
             text-align: center;
         }
-        #player {
-            width: 100%;
-            height: 300px;
-        }
-        #image-display {
-            display: none;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
+
+        .status.green { background-color: #28a745; }
+        .status.orange { background-color: #ffc107; }
+        .status.red { background-color: #dc3545; }
+
+        #image-display, #video-display {
             position: fixed;
             top: 0;
             left: 0;
-            z-index: 100;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
         }
-        #switch-button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            font-size: 1.2em;
-            cursor: pointer;
-            background-color: #444;
-            color: white;
-            border: none;
+
+        #image-display img, #video-display iframe {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .mirror-space {
+            flex-grow: 1;
         }
     </style>
 </head>
 <body>
-    <div class="left">
+    <div class="left-panel">
         <div class="weather">
             <h2>날씨</h2>
             <div id="weather-info">날씨 정보 로딩 중...</div>
@@ -111,27 +139,43 @@
             <h2>최신 뉴스</h2>
             <ul id="news-list"></ul>
         </div>
-        <div class="youtube">
-            <h2>추천 동영상</h2>
-            <div id="player"></div>
-            <button id="switch-button">이미지로 전환</button>
+        <div class="settings">
+            <h2>세부설정</h2>
+            <button id="settings-button">세부설정 선택</button>
+            <div id="settings-menu" class="settings-menu">
+                <button id="image-button">사진 선택</button>
+                <button id="video-button">영상 선택</button>
+                <button id="back-button" class="back-button">뒤로 가기</button>
+            </div>
         </div>
     </div>
-    
-    <div class="right">
+
+    <div class="mirror-space"></div>
+
+    <div class="right-panel">
         <div class="cleanliness">
             <h2>화장실 청결 상태</h2>
-            <div class="status good">냄새 지수: 좋음</div>
-            <div class="status average">습도 지수: 보통</div>
-            <div class="status bad">곰팡이 지수: 나쁨</div>
+            <div class="indicator">
+                <span>냄새 지수:</span> <span class="status green">좋음</span>
+            </div>
+            <div class="indicator">
+                <span>습도 지수:</span> <span class="status orange">보통</span>
+            </div>
+            <div class="indicator">
+                <span>환기 상태:</span> <span class="status orange">보통</span>
+            </div>
         </div>
     </div>
-    
-    <div id="image-display"></div>
-    
-    <script src="https://www.youtube.com/iframe_api"></script>
+
+    <div id="image-display">
+        <img src="" alt="Selected Image">
+    </div>
+    <div id="video-display">
+        <iframe width="560" height="315" src="" frameborder="0" allowfullscreen></iframe>
+    </div>
+
     <script>
-        // 시계 기능
+        // 시계 업데이트
         function updateClock() {
             const now = new Date();
             const timeString = now.toLocaleTimeString('ko-KR');
@@ -140,7 +184,7 @@
         setInterval(updateClock, 1000);
         updateClock();
 
-        // 날씨 정보 가져오기 (실제 구현 시 API 키와 엔드포인트를 변경해야 합니다)
+        // 날씨 정보 가져오기
         async function getWeather() {
             try {
                 const response = await fetch('https://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=eeb5f4ff65e6f49c849c886d02d14771&units=metric');
@@ -153,7 +197,7 @@
         }
         getWeather();
 
-        // 뉴스 가져오기 (실제 구현 시 API 키와 엔드포인트를 변경해야 합니다)
+        // 뉴스 가져오기
         async function getNaverNews() {
             const clientId = 'bS_lYerhOeXRuF8T3msb';
             const clientSecret = 'Yv6tLhz_vIv';
@@ -191,42 +235,49 @@
         }
         getNaverNews();
 
-        // YouTube 동영상 재생
-        let player;
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player', {
-                height: '300',
-                width: '100%',
-                videoId: 'jfKfPfyJRdk', // 예시 동영상 ID (실제 구현 시 변경 필요)
-                playerVars: {
-                    'autoplay': 1,
-                    'controls': 0,
-                    'mute': 1
-                },
-                events: {
-                    'onReady': onPlayerReady
-                }
-            });
-        }
-
-        function onPlayerReady(event) {
-            event.target.playVideo();
-        }
-
-        // 이미지로 전환 기능
-        const switchButton = document.getElementById('switch-button');
+        // 세부 설정 버튼 이벤트
+        const settingsButton = document.getElementById('settings-button');
+        const settingsMenu = document.getElementById('settings-menu');
+        const backButton = document.getElementById('back-button');
+        const imageButton = document.getElementById('image-button');
+        const videoButton = document.getElementById('video-button');
         const imageDisplay = document.getElementById('image-display');
+        const videoDisplay = document.getElementById('video-display');
+        const videoIframe = videoDisplay.querySelector('iframe');
 
-        switchButton.addEventListener('click', () => {
-            const imageUrl = prompt("전환할 이미지 URL을 입력하세요:");
+        settingsButton.addEventListener('click', () => {
+            settingsMenu.style.display = 'flex';
+        });
+
+        backButton.addEventListener('click', () => {
+            settingsMenu.style.display = 'none';
+        });
+
+        imageButton.addEventListener('click', () => {
+            const imageUrl = prompt('이미지 URL을 입력하세요:');
             if (imageUrl) {
-                imageDisplay.style.backgroundImage = `url(${imageUrl})`;
-                imageDisplay.style.display = 'block';
+                const img = imageDisplay.querySelector('img');
+                img.src = imageUrl;
+                imageDisplay.style.display = 'flex';
             }
         });
 
+        videoButton.addEventListener('click', () => {
+            const videoId = prompt('YouTube 영상 ID를 입력하세요:');
+            if (videoId) {
+                videoIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1`;
+                videoDisplay.style.display = 'flex';
+            }
+        });
+
+        // 이미지나 영상을 닫기
         imageDisplay.addEventListener('click', () => {
             imageDisplay.style.display = 'none';
+        });
+
+        videoDisplay.addEventListener('click', () => {
+            videoDisplay.style.display = 'none';
+            videoIframe.src = '';
         });
     </script>
 </body>
