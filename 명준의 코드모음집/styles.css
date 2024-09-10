@@ -1,0 +1,166 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f0f0;
+  }
+  
+  .container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  
+  }
+
+  .clickable-area {
+    position: absolute;
+    cursor: pointer;
+  }
+
+  .clickable-area .default {
+    display: block;
+  }
+
+  .clickable-area .hover {
+    display: none;
+  }
+
+  .clickable-area:hover .default {
+    display: none;
+  }
+
+  .clickable-area:hover .hover {
+    display: block;
+  }
+  
+  .popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    max-width: 90%;
+    max-height: 90%;
+    overflow: auto;
+  }
+
+  .close-popup {
+    display: block;
+    margin-top: 20px;
+    text-align: right;
+    cursor: pointer;
+    color: #1e88e5;
+  }
+
+  .slider {
+    width: 100%;
+  }
+
+  h1 {
+    color: #1e88e5;
+  }
+
+  button {
+    background-color: #1e88e5;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  button:hover {
+    background-color: #1565c0;
+  }
+
+  .on-off-btn {
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .on-off-btn input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+  }
+
+  .slider-btn:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+  }
+
+  input:checked + .slider-btn {
+    background-color: #2196F3;
+  }
+
+  input:checked + .slider-btn:before {
+    transform: translateX(26px);
+  }
+
+  .iframe-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .iframe-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .close-iframe {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  .color-preview {
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+    margin-bottom: 10px;
+  }
