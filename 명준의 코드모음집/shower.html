@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>샤워 조절</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 300px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .control-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        input[type="range"] {
+            width: 100%;
+        }
+        .value-display {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .filter-status {
+            text-align: center;
+            padding: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        #filterStatusText {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>샤워 조절</h1>
+        <div class="control-group">
+            <label for="temperature">수온 조절</label>
+            <input type="range" id="temperature" min="20" max="50" value="35">
+            <div class="value-display"><span id="temperatureValue">35</span>°C</div>
+        </div>
+        <div class="control-group">
+            <label for="pressure">수압 조절</label>
+            <input type="range" id="pressure" min="1" max="10" value="5">
+            <div class="value-display"><span id="pressureValue">5</span>/10</div>
+        </div>
+        <div class="filter-status">
+            필터 상태: <span id="filterStatusText">양호</span>
+        </div>
+    </div>
+
+    <script>
+        const temperatureSlider = document.getElementById('temperature');
+        const pressureSlider = document.getElementById('pressure');
+        const temperatureValue = document.getElementById('temperatureValue');
+        const pressureValue = document.getElementById('pressureValue');
+        const filterStatusText = document.getElementById('filterStatusText');
+
+        function updateTemperature() {
+            temperatureValue.textContent = temperatureSlider.value;
+        }
+
+        function updatePressure() {
+            pressureValue.textContent = pressureSlider.value;
+        }
+
+        function updateFilterStatus() {
+            // 실제 환경에서는 이 부분을 서버에서 데이터를 받아오는 로직으로 대체해야 합니다.
+            const filterLife = Math.random(); // 0에서 1 사이의 무작위 값
+            if (filterLife > 0.7) {
+                filterStatusText.textContent = "양호";
+                filterStatusText.style.color = "green";
+            } else if (filterLife > 0.3) {
+                filterStatusText.textContent = "주의";
+                filterStatusText.style.color = "orange";
+            } else {
+                filterStatusText.textContent = "교체 필요";
+                filterStatusText.style.color = "red";
+            }
+        }
+
+        temperatureSlider.addEventListener('input', updateTemperature);
+        pressureSlider.addEventListener('input', updatePressure);
+
+        // 초기 상태 설정
+        updateTemperature();
+        updatePressure();
+        updateFilterStatus();
+
+        // 필터 상태를 주기적으로 업데이트 (5초마다)
+        setInterval(updateFilterStatus, 5000);
+    </script>
+</body>
+</html>

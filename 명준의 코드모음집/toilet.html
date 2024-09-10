@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스마트 화장실 제어</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 300px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .control-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        input[type="range"] {
+            width: 100%;
+        }
+        .value-display {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>스마트 화장실 제어</h1>
+        <div class="control-group">
+            <label for="waterSaving">물 절약 모드</label>
+            <label class="switch">
+                <input type="checkbox" id="waterSaving">
+                <span class="slider"></span>
+            </label>
+            <div class="value-display"><span id="waterSavingStatus">꺼짐</span></div>
+        </div>
+        <div class="control-group">
+            <label for="bidetTemp">비데 온도</label>
+            <input type="range" id="bidetTemp" min="15" max="35" value="20">
+            <div class="value-display"><span id="bidetTempValue">35</span>°C</div>
+        </div>
+        <div class="control-group">
+            <label for="bidetPressure">비데 수압</label>
+            <input type="range" id="bidetPressure" min="1" max="5" value="3">
+            <div class="value-display"><span id="bidetPressureValue">3</span>/5</div>
+        </div>
+        <div class="control-group">
+            <label for="autoDisinfect">자동 소독</label>
+            <label class="switch">
+                <input type="checkbox" id="autoDisinfect">
+                <span class="slider"></span>
+            </label>
+            <div class="value-display"><span id="autoDisinfectStatus">꺼짐</span></div>
+        </div>
+        <button id="flush" class="btn">물 내리기</button>
+    </div>
+
+    <script>
+        const waterSavingSwitch = document.getElementById('waterSaving');
+        const waterSavingStatus = document.getElementById('waterSavingStatus');
+        const bidetTempSlider = document.getElementById('bidetTemp');
+        const bidetTempValue = document.getElementById('bidetTempValue');
+        const bidetPressureSlider = document.getElementById('bidetPressure');
+        const bidetPressureValue = document.getElementById('bidetPressureValue');
+        const autoDisinfectSwitch = document.getElementById('autoDisinfect');
+        const autoDisinfectStatus = document.getElementById('autoDisinfectStatus');
+        const flushButton = document.getElementById('flush');
+
+        function updateWaterSaving() {
+            waterSavingStatus.textContent = waterSavingSwitch.checked ? "켜짐" : "꺼짐";
+        }
+
+        function updateBidetTemp() {
+            bidetTempValue.textContent = bidetTempSlider.value;
+        }
+
+        function updateBidetPressure() {
+            bidetPressureValue.textContent = bidetPressureSlider.value;
+        }
+
+        function updateAutoDisinfect() {
+            autoDisinfectStatus.textContent = autoDisinfectSwitch.checked ? "켜짐" : "꺼짐";
+        }
+
+        function flush() {
+            alert(waterSavingSwitch.checked ? "절약 모드로 물을 내립니다." : "물을 내립니다.");
+        }
+
+        waterSavingSwitch.addEventListener('change', updateWaterSaving);
+        bidetTempSlider.addEventListener('input', updateBidetTemp);
+        bidetPressureSlider.addEventListener('input', updateBidetPressure);
+        autoDisinfectSwitch.addEventListener('change', updateAutoDisinfect);
+        flushButton.addEventListener('click', flush);
+
+        // 초기 상태 설정
+        updateWaterSaving();
+        updateBidetTemp();
+        updateBidetPressure();
+        updateAutoDisinfect();
+    </script>
+</body>
+</html>

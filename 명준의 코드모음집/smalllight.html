@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>환풍구 및 온습도 제어</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 300px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .control-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        input[type="range"] {
+            width: 100%;
+        }
+        .value-display {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .status {
+            text-align: center;
+            padding: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>환풍구 및 온습도 제어</h1>
+        <div class="control-group">
+            <label for="ventilation">외부 공기 유입</label>
+            <label class="switch">
+                <input type="checkbox" id="ventilation">
+                <span class="slider"></span>
+            </label>
+            <div class="value-display"><span id="ventilationStatus">차단</span></div>
+        </div>
+        <div class="control-group">
+            <label for="temperature">목표 온도 설정</label>
+            <input type="range" id="temperature" min="18" max="30" value="22">
+            <div class="value-display"><span id="temperatureValue">22</span>°C</div>
+        </div>
+        <div class="control-group">
+            <label for="humidity">목표 습도 설정</label>
+            <input type="range" id="humidity" min="15" max="70" value="50">
+            <div class="value-display"><span id="humidityValue">50</span>%</div>
+        </div>
+        <div class="status">
+            <div>현재 온도: <span id="currentTemp">22</span>°C</div>
+            <div>현재 습도: <span id="currentHumidity">50</span>%</div>
+        </div>
+    </div>
+
+    <script>
+        const ventilationSwitch = document.getElementById('ventilation');
+        const ventilationStatus = document.getElementById('ventilationStatus');
+        const temperatureSlider = document.getElementById('temperature');
+        const humiditySlider = document.getElementById('humidity');
+        const temperatureValue = document.getElementById('temperatureValue');
+        const humidityValue = document.getElementById('humidityValue');
+        const currentTemp = document.getElementById('currentTemp');
+        const currentHumidity = document.getElementById('currentHumidity');
+
+        function updateVentilation() {
+            ventilationStatus.textContent = ventilationSwitch.checked ? "유입" : "차단";
+        }
+
+        function updateTemperature() {
+            temperatureValue.textContent = temperatureSlider.value;
+        }
+
+        function updateHumidity() {
+            humidityValue.textContent = humiditySlider.value;
+        }
+
+        function simulateEnvironment() {
+            // 실제 환경에서는 이 부분을 센서 데이터를 받아오는 로직으로 대체해야 합니다.
+            let targetTemp = parseInt(temperatureSlider.value);
+            let targetHumidity = parseInt(humiditySlider.value);
+            let currentTempValue = parseInt(currentTemp.textContent);
+            let currentHumidityValue = parseInt(currentHumidity.textContent);
+
+            // 목표 온도와 습도로 서서히 변화
+            if (currentTempValue < targetTemp) currentTempValue++;
+            else if (currentTempValue > targetTemp) currentTempValue--;
+
+            if (currentHumidityValue < targetHumidity) currentHumidityValue++;
+            else if (currentHumidityValue > targetHumidity) currentHumidityValue--;
+
+            currentTemp.textContent = currentTempValue;
+            currentHumidity.textContent = currentHumidityValue;
+        }
+
+        ventilationSwitch.addEventListener('change', updateVentilation);
+        temperatureSlider.addEventListener('input', updateTemperature);
+        humiditySlider.addEventListener('input', updateHumidity);
+
+        // 초기 상태 설정
+        updateVentilation();
+        updateTemperature();
+        updateHumidity();
+
+        // 환경 시뮬레이션 (1초마다 업데이트)
+        setInterval(simulateEnvironment, 1000);
+    </script>
+</body>
+</html>

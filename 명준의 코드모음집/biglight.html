@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>감정 기반 조명 제어</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 300px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .color-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            border: 2px solid #ddd;
+        }
+        label {
+            display: inline-block;
+            width: 50px;
+            text-align: right;
+            margin-right: 10px;
+        }
+        input[type="range"] {
+            width: 200px;
+            margin-bottom: 10px;
+        }
+        .value-display {
+            display: inline-block;
+            width: 30px;
+            text-align: left;
+            margin-left: 10px;
+        }
+        select {
+            margin: 20px 0;
+            padding: 5px;
+            width: 200px;
+        }
+        button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>감정 기반 조명 제어</h1>
+        <div class="color-preview" id="colorPreview"></div>
+        <div>
+            <label for="red">빨강:</label>
+            <input type="range" id="red" min="0" max="255" value="255">
+            <span class="value-display" id="redValue">255</span>
+        </div>
+        <div>
+            <label for="green">초록:</label>
+            <input type="range" id="green" min="0" max="255" value="255">
+            <span class="value-display" id="greenValue">255</span>
+        </div>
+        <div>
+            <label for="blue">파랑:</label>
+            <input type="range" id="blue" min="0" max="255" value="255">
+            <span class="value-display" id="blueValue">255</span>
+        </div>
+        <select id="emotionSelect">
+            <option value="">감정 선택</option>
+            <option value="happy">행복</option>
+            <option value="calm">평온</option>
+            <option value="energetic">활기찬</option>
+            <option value="romantic">로맨틱</option>
+            <option value="focused">집중</option>
+        </select>
+        <button id="applyEmotion">감정 기반 조명 적용</button>
+    </div>
+
+    <script>
+        const redSlider = document.getElementById('red');
+        const greenSlider = document.getElementById('green');
+        const blueSlider = document.getElementById('blue');
+        const colorPreview = document.getElementById('colorPreview');
+        const redValue = document.getElementById('redValue');
+        const greenValue = document.getElementById('greenValue');
+        const blueValue = document.getElementById('blueValue');
+        const emotionSelect = document.getElementById('emotionSelect');
+        const applyEmotionBtn = document.getElementById('applyEmotion');
+
+        const emotionColors = {
+            happy: { r: 255, g: 223, b: 0 },     // 밝은 노랑
+            calm: { r: 173, g: 216, b: 230 },    // 연한 파랑
+            energetic: { r: 255, g: 69, b: 0 },  // 밝은 주황
+            romantic: { r: 255, g: 182, b: 193 }, // 연한 분홍
+            focused: { r: 0, g: 128, b: 0 }      // 초록
+        };
+
+        function updateColor() {
+            const r = redSlider.value;
+            const g = greenSlider.value;
+            const b = blueSlider.value;
+            const color = `rgb(${r},${g},${b})`;
+            colorPreview.style.backgroundColor = color;
+            redValue.textContent = r;
+            greenValue.textContent = g;
+            blueValue.textContent = b;
+        }
+
+        function applyEmotionColor() {
+            const selectedEmotion = emotionSelect.value;
+            if (selectedEmotion && emotionColors[selectedEmotion]) {
+                const color = emotionColors[selectedEmotion];
+                redSlider.value = color.r;
+                greenSlider.value = color.g;
+                blueSlider.value = color.b;
+                updateColor();
+            }
+        }
+
+        redSlider.addEventListener('input', updateColor);
+        greenSlider.addEventListener('input', updateColor);
+        blueSlider.addEventListener('input', updateColor);
+        applyEmotionBtn.addEventListener('click', applyEmotionColor);
+
+        updateColor();
+    </script>
+</body>
+</html>
