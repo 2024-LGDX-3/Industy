@@ -3,7 +3,7 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>김지엘 님의 Lavio</title>
+    <title>김지엘의 Lavio</title>
     <link rel="icon" type="image/png" href="logo_white.png">
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
@@ -12,12 +12,27 @@
         span {
             font-size: larger;
             font-style: italic;
-            color: salmon;
+            color: rgb(114, 189, 250);
+        }
 
-        }
-        h1 {
+        .header {
+            width: 100%;
             text-align: right;
+            margin-right: 20px; /* 제목을 화면 오른쪽에 더 가까이 배치 */
+            box-sizing: border-box; /* padding을 포함하여 박스 크기 계산 */
         }
+
+        h1 {
+            margin: 0;
+            padding: 10px 0;
+        }
+
+        hr {
+            margin: 0;
+            border: none;
+            border-top: 1px solid #ccc; /* hr 스타일 조정 */
+        }
+
         .back {
             position: fixed;
             bottom: 20px;
@@ -26,11 +41,46 @@
             text-decoration: underline;
             color: darkblue;
         }
+
+        /* 전체 화면을 사용하여 중앙 정렬을 위한 스타일 */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* iframe을 중앙 정렬 */
+            overflow: hidden;
+        }
+
+        .iframe-container {
+            width: 1240px;
+            height: 700px;
+            overflow: auto;
+            resize: both; /* 창 크기 조절 가능하게 */
+            margin-top: 20px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
     </style>
 </head>
 <body>
-     <h1><span>김지엘</span> 님의 Lavio     </h1>
-     <hr>
-     <div class="back" onclick="location.href='home.html'">뒤로가기</div>
+    <!-- 제목과 hr을 포함하는 헤더 섹션 -->
+    <div class="header">
+        <h1><span>이라경</span> 님의 Lavio</h1>
+        <hr>
+    </div>
+
+    <!-- iframe을 중앙에 배치 -->
+    <div class="iframe-container">
+        <iframe src="/명준의 코드모음집/bath.html" frameborder="0"></iframe>
+    </div>
+
+    <!-- 뒤로가기 버튼 -->
+    <div class="back" onclick="location.href='home.html'">뒤로가기</div>
 </body>
 </html>
