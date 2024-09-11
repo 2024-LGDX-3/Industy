@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bathroom Menu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* 우측 미리보기 스타일 */
+        .preview {
+            width: 60%;
+            background-color: #f2f2f2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .preview img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        .preview h2 {
+            font-size: 1.5rem;
+        }
+
+        /* 좌측 메뉴 스타일 */
+        .menu {
+            width: 40%;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: #ffffff;
+        }
+
+        .menu h2 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .menu-item:hover {
+            background-color: #f2f2f2;
+        }
+
+        .menu-item img {
+            width: 24px;
+            height: 24px;
+            margin-right: 15px;
+        }
+
+        .menu-item span {
+            font-size: 1.1rem;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+     <!-- 좌측: 메뉴 목록 -->
+    <div class="menu">
+        <h2>Add</h2>
+        <div class="menu-item">
+            <img src="아이콘_샤워기.png" alt="Shower Icon">
+            <span>Shower</span>
+        </div>
+        <div class="menu-item">
+            <img src="아이콘_욕조.png" alt="Bath Icon">
+            <span>Bath</span>
+        </div>
+        <div class="menu-item">
+            <img src="mirror.png" alt="Mirrors Icon">
+            <span>Mirrors</span>
+        </div>
+        <div class="menu-item">
+            <img src="cooling-fan.png" alt="Lavatory Icon">
+            <span>Lavatory pan</span>
+        </div>
+        <div class="menu-item">
+            <img src="lamp.png" alt="Lighting Icon">
+            <span>Lighting</span>
+        </div>
+    </div>
+        <!-- 우측: 미리보기 -->
+        <div class="preview">
+            <img src="https://via.placeholder.com/100" alt="Preview">
+            <h2>Set Eye Level</h2>
+        </div>
+</div>
+
+</body>
+</html>
